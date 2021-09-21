@@ -4,18 +4,19 @@ import keep_alive
 
 keep_alive.keep_alive()
 
-api_id = os.environ['api_id']
-api_hash = os.environ['api_hash']
-client = TelegramClient('anon', api_id, api_hash)
-chat_id = os.environ['chat_id']
+api_id = os.environ["api_id"]
+api_hash = os.environ["api_hash"]
+client = TelegramClient("anon", api_id, api_hash)
+chat_id = os.environ["chat_id"]
+
 
 @client.on(events.NewMessage(chats=chat_id))
-async def my_event_handler(event):
+async def logger(event):
     sender = await event.get_sender()
     if event.message.text and not event.message.media:
-      print("{}: {}".format(sender.first_name, event.message.text))
+        print("{}: {}".format(sender.first_name, event.message.text))
     else:
-      print("{}: *sent a media*, link: {}".format(sender.first_name))
+        print("{}: *sent a media*".format(sender.first_name))
 
 
 client.start()
